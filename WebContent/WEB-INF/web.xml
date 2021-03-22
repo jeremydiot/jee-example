@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+
+<!-- FILTER -->	
+
+<!--  	<filter>
+		<filter-name>RestrictionFilter</filter-name>
+		<filter-class>com.jdiot.jeePro.filters.RestrictionFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>RestrictionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>  -->
+	
+ 	<filter>
+	    <filter-name>Set Character Encoding</filter-name>
+	    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>ignore</param-name>
+	        <param-value>false</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	    <filter-name>Set Character Encoding</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+<!-- SERVLET -->
+	
+	<servlet>
+		<servlet-name>SignUp</servlet-name>
+		<servlet-class>com.jdiot.jeePro.servlets.SignUp</servlet-class>
+	</servlet>
+	
+ 	<servlet>
+		<servlet-name>SignIn</servlet-name>
+		<servlet-class>com.jdiot.jeePro.servlets.SignIn</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SignOut</servlet-name>
+		<servlet-class>com.jdiot.jeePro.servlets.SignOut</servlet-class>
+	</servlet>
+		
+	<servlet>
+		<servlet-name>Download</servlet-name>
+		<servlet-class>com.jdiot.jeePro.servlets.Download</servlet-class>
+		<init-param>
+			<param-name>chemin</param-name>
+			<param-value>/home/jdiot/eclipse-workspace/jeePro/fichier/</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Upload</servlet-name>
+		<servlet-class>com.jdiot.jeePro.servlets.Upload</servlet-class>
+		<init-param>
+			<param-name>chemin</param-name>
+			<param-value>/home/jdiot/eclipse-workspace/jeePro/fichier/</param-value>
+		</init-param>
+		<multipart-config>
+			<location>/home/jdiot/eclipse-workspace/jeePro/temp</location>
+			<max-file-size>10485760</max-file-size> <!-- 10 Mo -->
+			<max-request-size>52428800</max-request-size> <!-- 5 x 10 Mo -->
+			<file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
+		</multipart-config>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Upload</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Download</servlet-name>
+		<url-pattern>/fichier/*</url-pattern>
+	</servlet-mapping> 
+	
+	<servlet-mapping>
+		<servlet-name>SignUp</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+		
+ 	<servlet-mapping>
+		<servlet-name>SignIn</servlet-name>
+		<url-pattern>/signin</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SignOut</servlet-name>
+		<url-pattern>/signout</url-pattern>
+	</servlet-mapping>
+
+<!-- JSP include -->
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
+	
+<!-- CONFIG -->
+
+	<listener>
+	    <listener-class>com.jdiot.jeePro.config.InitialisationDaoFactory</listener-class>
+	</listener>
+	
+</web-app>
